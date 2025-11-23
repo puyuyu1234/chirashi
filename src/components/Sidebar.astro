@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => {
+  // 日付で昇順ソート（古い順）
+  const dateCompare = a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+  if (dateCompare !== 0) return dateCompare;
+  // 同じ日付ならID（ファイル名）で昇順ソート
+  return a.id.localeCompare(b.id);
+});
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<aside>
+  <h3>記事</h3>
+  <ul>
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`${base}/blog/${post.id.replace(/\.mdx?$/, '')}/`}>
+            {post.data.title}
+          </a>
+          <time datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString('ja-JP', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+            })}
+          </time>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
+
+<style>
+  aside {
+    padding: 1rem;
+    border-right: 8px dotted rgba(var(--gray), 0.3);
+    width: 300px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 1rem;
+    height: calc(100vh - 12rem);
+    overflow-y: auto;
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgb(var(--gray));
+  }
+
+  li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  a {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  time {
+    font-size: 0.85rem;
+    color: rgb(var(--gray));
+  }
+</style>
