@@ -1,15 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (await getCollection('blog')).sort((a, b) => {
+	// 日付で昇順ソート（古い順）
+	const dateCompare = a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+	if (dateCompare !== 0) return dateCompare;
+	// 同じ日付ならID（ファイル名）で昇順ソート
+	return a.id.localeCompare(b.id);
+});
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <aside>
-	<h3>最近の記事</h3>
+	<h3>記事</h3>
 	<ul>
 		{posts.map((post) => (
 			<li>

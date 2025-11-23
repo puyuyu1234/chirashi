@@ -5,9 +5,13 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import LayoutWithSidebar from '../../layouts/LayoutWithSidebar.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection('blog')).sort((a, b) => {
+	// 日付で昇順ソート（古い順）
+	const dateCompare = a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+	if (dateCompare !== 0) return dateCompare;
+	// 同じ日付ならID（ファイル名）で昇順ソート
+	return a.id.localeCompare(b.id);
+});
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
