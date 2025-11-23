@@ -33,21 +33,12 @@ const { title, description } = Astro.props;
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3em 1em;
+    padding: 1em;
     align-items: flex-start;
   }
 
   main {
     flex: 1;
     min-width: 0;
-  }
-
-  :global(aside) {
-    width: 300px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 1rem;
-    max-height: calc(100vh - 2rem);
-    overflow-y: auto;
   }
 </style>

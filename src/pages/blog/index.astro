@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import { formatDate } from '../../utils/formatDate';
 import LayoutWithSidebar from '../../layouts/LayoutWithSidebar.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
@@ -28,26 +27,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         padding: 0;
       }
       ul li {
-        width: calc(50% - 1rem);
+        width: 100%;
       }
       ul li * {
         text-decoration: none;
         transition: 0.2s ease;
-      }
-      ul li:first-child {
-        width: 100%;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-      ul li:first-child img {
-        width: 100%;
-      }
-      ul li:first-child .title {
-        font-size: 2.369rem;
-      }
-      ul li img {
-        margin-bottom: 0.5rem;
-        border-radius: 12px;
       }
       ul li a {
         display: block;
@@ -65,26 +49,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       ul li a:hover .date {
         color: rgb(var(--accent));
       }
-      ul a:hover img {
-        box-shadow: var(--box-shadow);
-      }
     </style>
     <ul>
       {
         posts.map((post) => (
           <li>
             <a href={`${base}/blog/${post.id.replace(/\.mdx?$/, '')}/`}>
-              {post.data.heroImage && (
-                <Image
-                  width={720}
-                  height={360}
-                  src={post.data.heroImage}
-                  alt=""
-                />
-              )}
               <h4 class="title">{post.data.title}</h4>
               <p class="date">
-                <FormattedDate date={post.data.pubDate} />
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
               </p>
             </a>
           </li>
