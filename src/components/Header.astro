@@ -7,10 +7,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <header>
   <nav>
     <h2><a href={`${base}/`}>{SITE_TITLE}</a></h2>
+    <button class="hamburger" aria-label="メニュー">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 </header>
 <style>
   header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     margin: 0;
     padding: 1em 2em;
     background: white;
@@ -33,7 +41,33 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: rgb(var(--black));
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
   }
 </style>

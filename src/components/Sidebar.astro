@@ -84,4 +84,55 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     font-size: 0.85rem;
     color: rgb(var(--gray));
   }
+
+  @media (max-width: 768px) {
+    aside {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: white;
+      z-index: 200;
+      transition: left 0.3s ease;
+      border-right: none;
+      box-shadow: 2px 0 10px rgba(var(--black), 0.1);
+      padding-top: 4rem;
+    }
+
+    aside.open {
+      left: 0;
+    }
+  }
 </style>
+
+<script>
+  // ハンバーガーメニューのクリックでサイドバーを開閉
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('aside');
+
+    if (hamburger && sidebar) {
+      hamburger.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+
+      // サイドバー外をクリックしたら閉じる
+      document.addEventListener('click', (e) => {
+        if (sidebar.classList.contains('open') &&
+            !sidebar.contains(e.target as Node) &&
+            !hamburger.contains(e.target as Node)) {
+          sidebar.classList.remove('open');
+        }
+      });
+
+      // サイドバー内のリンクをクリックしたら閉じる
+      sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+        });
+      });
+    }
+  });
+</script>
