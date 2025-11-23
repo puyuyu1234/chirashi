@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<aside>
+	<h3>最近の記事</h3>
+	<ul>
+		{posts.map((post) => (
+			<li>
+				<a href={`${base}/blog/${post.id.replace(/\.mdx?$/, '')}/`}>
+					{post.data.title}
+				</a>
+				<time datetime={post.data.pubDate.toISOString()}>
+					{post.data.pubDate.toLocaleDateString('ja-JP', {
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit',
+					})}
+				</time>
+			</li>
+		))}
+	</ul>
+</aside>
+
+<style>
+	aside {
+		padding: 1rem;
+		background: rgb(var(--gray-light));
+		border-radius: 8px;
+	}
+
+	h3 {
+		margin-top: 0;
+		font-size: 1.2rem;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		margin-bottom: 1rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid rgb(var(--gray));
+	}
+
+	li:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	a {
+		display: block;
+		font-weight: 500;
+		margin-bottom: 0.25rem;
+		text-decoration: none;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
+
+	time {
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+	}
+</style>
