@@ -2,11 +2,11 @@
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort((a, b) => {
-  // 日付で昇順ソート（古い順）
-  const dateCompare = a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+  // 日付で降順ソート（新しい順）
+  const dateCompare = b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
   if (dateCompare !== 0) return dateCompare;
-  // 同じ日付ならID（ファイル名）で昇順ソート
-  return a.id.localeCompare(b.id);
+  // 同じ日付ならID（ファイル名）で降順ソート
+  return b.id.localeCompare(a.id);
 });
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -36,14 +36,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <style>
   aside {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
     padding: 1rem;
     border-right: 8px dotted rgba(var(--gray), 0.3);
-    width: 300px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 1rem;
-    height: calc(100vh - 12rem);
     overflow-y: auto;
+    background: white;
   }
 
   h3 {
@@ -87,18 +88,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   @media (max-width: 768px) {
     aside {
-      position: fixed;
       top: 0;
       left: -100%;
       width: 80%;
-      max-width: 300px;
+      max-width: var(--sidebar-width);
       height: 100vh;
-      background: white;
-      z-index: 200;
-      transition: left 0.3s ease;
       border-right: none;
       box-shadow: 2px 0 10px rgba(var(--black), 0.1);
       padding-top: 4rem;
+      z-index: 200;
+      transition: left 0.3s ease;
     }
 
     aside.open {
