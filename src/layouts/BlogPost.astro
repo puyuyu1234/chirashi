@@ -26,10 +26,6 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 
 <style>
   article {
-    max-width: 720px;
-    margin: auto;
-    padding: 1em;
-    color: rgb(var(--gray-dark));
     text-align: center;
   }
 
@@ -56,11 +52,5 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 
   article :global(> :not(time):not(h1):not(hr)) {
     text-align: left;
-  }
-
-  @media (max-width: 768px) {
-    article {
-      padding: 0.5em;
-    }
   }
 </style>

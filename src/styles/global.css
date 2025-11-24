@@ -6,6 +6,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --accent: #2337ff;
   --accent-dark: #000d8a;
@@ -17,6 +23,9 @@
   --box-shadow:
     0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
     0 16px 32px rgba(var(--gray), 33%);
+  --header-height: 4.5em;
+  --sidebar-width: 300px;
+  --content-width: 720px;
 }
 
 body {
@@ -32,34 +41,26 @@ body {
   font-size: 20px;
   line-height: 1.7;
 }
-main {
-  width: 720px;
-  max-width: calc(100% - 2em);
-  margin: auto;
-}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 0.5rem 0;
+  margin: 3rem 0 0 0;
   color: rgb(var(--black));
   line-height: 1.2;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 2em;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 1.75em;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.5em;
 }
 h4 {
-  font-size: 1.563em;
-}
-h5 {
   font-size: 1.25em;
 }
 strong,
@@ -117,7 +118,7 @@ hr {
 }
 @media (max-width: 768px) {
   body {
-    font-size: 18px;
+    font-size: 14px;
   }
   main {
     padding: 1em;
