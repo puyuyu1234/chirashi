@@ -14,7 +14,10 @@
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.0",
-    "sharp": "^0.34.3"
+    "remark-breaks": "^4.0.0",
+    "remark-directive": "^4.0.0",
+    "sharp": "^0.34.3",
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

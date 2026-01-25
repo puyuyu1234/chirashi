@@ -51,17 +51,18 @@ h6 {
   color: rgb(var(--black));
   line-height: 1.2;
 }
+/* Minor Third Scale (1.2) */
 h1 {
-  font-size: 2em;
+  font-size: 2.074em; /* 1.2^4 */
 }
 h2 {
-  font-size: 1.75em;
+  font-size: 1.728em; /* 1.2^3 */
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.44em;  /* 1.2^2 */
 }
 h4 {
-  font-size: 1.25em;
+  font-size: 1.2em;   /* 1.2^1 */
 }
 strong,
 b {
@@ -110,7 +111,7 @@ blockquote {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 20px;
   margin: 0px;
-  font-size: 1.333em;
+  font-size: 1em;
 }
 hr {
   border: none;
@@ -141,4 +142,59 @@ hr {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+/* VitePress-style Custom Containers */
+.custom-container {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.custom-container p {
+  margin: 0;
+}
+
+.custom-container p + p {
+  margin-top: 0.75em;
+}
+
+.custom-container.info {
+  background-color: #e7f3ff;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.custom-container.tip {
+  background-color: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.custom-container.warning {
+  background-color: #fffbeb;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.custom-container.danger {
+  background-color: #fef2f2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.custom-container.details {
+  background-color: #f8fafc;
+  border-color: rgb(var(--gray));
+}
+
+.custom-container.details summary {
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.custom-container.details[open] summary {
+  margin-bottom: 1em;
 }
